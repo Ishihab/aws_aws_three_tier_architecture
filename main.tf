@@ -4,16 +4,15 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# Data Source: Ubuntu AMI
-# Fetches the latest Ubuntu 22.04 LTS AMI
+# Data Source: Amazon_linux AMI
+# Fetches the most recent Amazon Linux 2 AMI ID
 # ----------------------------------------------------------------------------
-data "aws_ami" "ubuntu" {
+data "aws_ami" "amazon_linux" {
     most_recent = true
-    owners      = ["099720109477"]  # Canonical
-
+    owners      = ["amazon"]
     filter {
         name   = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+        values = ["amzn2-ami-hvm-*-x86_64-gp2"]
     }
 
     filter {
@@ -22,7 +21,7 @@ data "aws_ami" "ubuntu" {
     }
 
     filter {
-        name = "architecture"
+        name   = "architecture"
         values = ["x86_64"]
     }
 }
@@ -49,7 +48,7 @@ module "vpc" {
 # ----------------------------------------------------------------------------
 module "ec2" {
     source = "./module/ec2"
-    ami_id = data.aws_ami.ubuntu.id
+    ami_id = data.aws_ami.amazon_linux.id
 
     # Web Tier Configuration
     web_instance_type      = "t3.micro"
@@ -110,6 +109,7 @@ module "rds" {
     # db_allocated_storage = 20
     # db_engine_version = "8.0"
     # db_backup_retention_period = 7
+    # db_multi_az = true
 }
 
 
