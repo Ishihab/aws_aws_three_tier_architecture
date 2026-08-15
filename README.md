@@ -138,7 +138,7 @@ terraform_three_tier_arch/
 ### 1. Clone and Configure
 
 ```bash
-git clone git@github.com:Ishihab/aws_aws_three_tier_architecture.git
+git clone git@github.com:Ishihab/aws_three_tier_architecture.git
 cd terraform_three_tier_arch
 ```
 
